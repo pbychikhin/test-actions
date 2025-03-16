@@ -4,13 +4,23 @@ on:
   workflow_dispatch:
     inputs:
       greeting_name:
-        required: true
+        required: false
         type: string
+        default: User
+        description: name
 jobs:
   job_1:
     runs-on: ubuntu-latest
     steps:
       - name: Greet
         run: echo "Hello ${{ inputs.greeting_name }}"
-      - name: List packages
-        run: apt list --installed
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: List dir
+        run: ls -la
+      - name: Run py script
+        run: python3 test_script.py
+      - name: upgrade boto3
+        run: pip install --upgrade boto3
+      - name: list pip modules
+        run: pip3 list
